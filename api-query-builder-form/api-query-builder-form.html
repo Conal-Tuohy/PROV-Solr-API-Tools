@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PROV API Query Builder</title>
+		<link type="text/css" href="api-query-builder-form.css"> 
+	</head>
+	<body>
+		<!-- this JavaScript library contains functions to connect an HTML5 form to a Solr server -->
+		<script src="api-query-builder-form.js"></script>
+		<!-- NB The id attribute used in this page are arbitrary and bear no necessary relation to Solr field names. -->
+		<!-- This allows multiple instances of a form to embedded in a single page without conflicting. -->
+		
+		<!-- The form's id ("my-query-builder-form") is used to identify the form to JS functions below -->
+		<!-- The form's action attribute specifies the base URL of the Solr API -->
+		<form id="my-query-builder-form" action="/search/query" class="query-builder">
+			<!-- Elements with the class "metadata" correspond to Solr fields. -->
+			<!-- Each such input should have a name attribute which matches the name of a Solr field -->
+			<label for="text-input">Text</label>
+			<input id="text-input" name="text" type="text" class="metadata">
+			<label for="series-input">Series</label>
+			<input id="series-input" name="series_id" list="series-list" class="metadata">
+			<label for="record-form-select">Record form</label>
+			<select id="record-form-select" name="record_form" class="metadata">
+			<label for="start_dt-input">Start date</label>
+			<!-- TODO do I need class="from"/"to"? Can't the query-builder work out which is which based on the data entered? -->
+			<input id="start_dt-input" name="start_dt" class="from" type="date" min="1800-01-01" class="metadata">
+			<label for="start_dt-input">End date</label>
+			<input id="start_dt-input" name="end_dt" class="to" type="date" min="1800-01-01" class="metadata">
+			<label for="iiif-manifest-input">IIIF manifest</label>
+			<input id="iiif-manifest-input" type="checkbox" name="iiif-manifest" value="*" class="metadata"/>
+			<label for="sort-select">Sort</label>
+			<select id="sort-select" name="sort" class="control">
+				<option label="Score (default)"></option>
+				<option label="Series title">Series_title asc</option>
+				<option label="PROV ACM identifier">identifier.PROV_ACM.id asc</option>
+			</select>
+			<label for="output-format-select">Output format</label>
+			<select id="output-format-select" name="wt" class="control">
+				<option label="CSV">csv</option>
+				<option label="JSON">json</option>
+				<option label="XML">xml</option>
+				<option label="IIIF">xslt</option>
+			</select>
+			<label for="number-input">Number of rows</label>
+			<input class="control" name="rows" id="number-input" type="number" min="1" max="200">
+			<label for="number-input">Starting row</label>
+			<input class="control" name="start" id="number-input" type="number" min="0">
+			<input type="hidden" name="tr" class="control" value="solr-to-iiif.xsl">
+			
+			<!-- A datalist element will be populated by options with values taken from facet buckets of the corresponding Solr field -->
+			<!-- If the datalist element has a data-option attribute, it will be used as a template to generate display values for each option. -->
+			<!-- The templates can include Solr field names in curly brackets; these field values will be substituted into the template -->
+			
+			<!-- This datalist will be populated with option elements whose value attributes will be drawn from the Solr field "is_part_of_series.id" -->
+			<datalist id="series-list">
+			</datalist>
+			<button name="search" type="submit">Search</button>
+			<button name="download" type="submit">Download</button>
+		</form>
+		<a id="query-url-display" href=""></a>
+		<iframe name="my-query-builder-form-results" id="my-query-builder-form-results" src="about:blank" style="width: 90%; height: 20em;">
+		</iframe>
+		<!-- automate the query builder form -->
+		<script>
+			const form = document.getElementById('my-query-builder-form');
+			// attach controller functions to the form
+			initializeQueryBuilderForm(form);
+			// When the user submits the query builder form, the form will emit a "urlChanged" event. 
+			// By adding a function to listen for this event, we can receive the updated query URL.
+
+			function handleSolrUrlChange(event) {
+				const queryUrlDisplay = document.getElementById('query-url-display');
+				if (event.detail.submitter.name === "download") {
+					// the user has chosen to download the query results
+					// so we set the "query-url-display" hyperlink to point to the query results, specify the download name, and click it,
+					// before putting it back the way it was
+					var downloadLink = document.createElement("a");
+					downloadLink.href = event.detail.url;
+					downloadLink.download = event.detail.downloadFilename;
+					downloadLink.click();
+				} else { 
+					// update the "query-url-display" link so that it displays (and links to) the query URL produced by the form
+					queryUrlDisplay.innerText = event.detail.url;
+					queryUrlDisplay.href = event.detail.url;
+					// update the "my-query-builder-form-results" iframe so that it displays the query results
+					document.getElementById('my-query-builder-form-results').src= event.detail.url;
+				}
+			};
+			form.addEventListener('urlChanged', handleSolrUrlChange);
+		</script>
+	</body>
+</html>
