@@ -72,6 +72,7 @@ function displayIIIFManifest(manifest, photoWall) {
 	itemDiv.className = "item";
 	let thumbnail = document.createElement("img");
 	thumbnail.src= manifest.thumbnail[0].id;
+	thumbnail.loading = "lazy";
 	let details = document.createElement("details");
 	let summary = document.createElement("summary");
 	summary.append(thumbnail);
