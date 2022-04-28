@@ -97,23 +97,34 @@ function initializeQueryBuilderForm(form) {
 	Array
 		.from(form.elements)
 		.filter(element => element.name === "wt")
-		.forEach(wt => wt.addEventListener("change", handleWriterChangedEvent));
+		.forEach(
+			function(responseWriter) {
+				// perform the enabling and disabling once to initialize the form 
+				enableAndDisableControlsDependentOnResponseWriter(responseWriter.value, form);
+				// listen to subsequent changes to the ResponseWriter control, to perform the enabling/disabling again as needed
+				responseWriter.addEventListener("change", handleWriterChangedEvent);
+			}
+		);
 }
 
 function handleWriterChangedEvent(changeEvent) {
-	const wt = event.target.value;
+	const responseWriter = event.target.value;
 	const form = event.target.form;
-	console.log("writer parameter changed to", wt);
+	console.log("writer parameter changed to", responseWriter);
+	enableAndDisableControlsDependentOnResponseWriter(responseWriter, form);
+}
+	
+function enableAndDisableControlsDependentOnResponseWriter(responseWriter, form) {
 	const controls = Array
 		.from(form.elements)
 		.filter(element => element.name != undefined)
 		.filter(element => element.classList.contains("control")); // only if the element has been tagged as a "control" (rather than "metadata") parameter
 	controls
 		.filter(element => element.name === 'tr') // tr parameter only used when wt=xslt
-		.forEach(tr => tr.disabled = (wt != 'xslt'));
+		.forEach(tr => tr.disabled = (responseWriter != 'xslt'));
 	controls
 		.filter(element => element.name.startsWith('csv.')) // csv.* parameters only used when wt=csv
-		.forEach(tr => tr.disabled = (wt != 'csv'));
+		.forEach(tr => tr.disabled = (responseWriter != 'csv'));
 };
 
 function handleSubmitEvent(submitEvent) {
