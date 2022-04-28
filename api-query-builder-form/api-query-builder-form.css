@@ -38,3 +38,7 @@ form.query-builder button {
 	padding-left: 0.5em;
 	padding-right: 0.5em;
 }
+
+a.display-url {
+	text-decoration: none;
+}

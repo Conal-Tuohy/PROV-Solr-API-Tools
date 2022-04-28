@@ -80,15 +80,18 @@
 					<label for="number-input">Starting at row</label>
 					<input class="control" name="start" id="number-input" type="number" min="0">
 				</div>
-			<div>
-				<button name="search" type="submit">Search</button>
-				<button name="download" type="submit">Download</button>
-			</div>
+				<div>
+					<button name="search" type="submit">Search</button>
+					<button name="download" type="submit">Download</button>
+				</div>
+			</fieldset>
+			<fieldset>
+				<legend>Results</legend>
+				<p>Query URL: <a id="query-url-display" class="display-url" href="">(click the <string>Search</string> button to generate the URL)</a></p>
+				<iframe name="my-query-builder-form-results" id="my-query-builder-form-results" src="about:blank" style="box-sizing: border-box; width: 100%; height: 20em; background-color: white;">
+				</iframe>
 			</fieldset>
 		</form>
-		<a id="query-url-display" href=""></a>
-		<iframe name="my-query-builder-form-results" id="my-query-builder-form-results" src="about:blank" style="box-sizing: border-box; width: 100%; height: 20em;">
-		</iframe>
 		<!-- automate the query builder form -->
 		<script>
 			const form = document.getElementById('my-query-builder-form');
