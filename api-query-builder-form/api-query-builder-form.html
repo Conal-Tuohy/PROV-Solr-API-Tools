@@ -67,18 +67,18 @@
 						<option label="XML">xml</option>
 						<option label="IIIF">xslt</option>
 					</select>
+					<!-- when XSLT is requested, a stylesheet must be specified -->
+					<input type="hidden" name="tr" class="control" value="solr-to-iiif.xsl">
+					<!-- when CSV is requested, if any fields have multiple values, separate them with "|" rather than a comma -->
+					<input type="hidden" name="csv.mv.separator" class="control" value="|">
 				</div>
 				<div>
-					<label for="number-input">Number of rows</label>
-					<input class="control" name="rows" id="number-input" type="number" min="1" max="200">
+					<label for="rows-input">Number of rows</label>
+					<input class="control" name="rows" id="rows-input" type="number" min="1" max="200">
 				</div>
-				<!-- when XSLT is requested, a stylesheet must be specified -->
-				<input type="hidden" name="tr" class="control" value="solr-to-iiif.xsl">
-				<!-- when CSV is requested, if any fields have multiple values, separate them with "|" rather than a comma -->
-				<input type="hidden" name="csv.mv.separator" class="control" value="|">
 				<div>
-					<label for="number-input">Starting at row</label>
-					<input class="control" name="start" id="number-input" type="number" min="0">
+					<label for="start-input">Starting at row</label>
+					<input class="control" name="start" id="start-input" type="number" min="0">
 				</div>
 				<div>
 					<button name="search" type="submit">Search</button>

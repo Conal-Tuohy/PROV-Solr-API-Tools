@@ -15,7 +15,7 @@
 
 // attach controller functions to an HTML5 form so that it can deal with a Solr back end 
 function initializeQueryBuilderForm(form) {
-	// TODO load facet values into the form as HTML <option> elements
+	// load facet values into the form as HTML <option> elements
 	const facetFields = Array
 		.from(form.elements) // all the elements making up the query builder form
 		.map(
@@ -90,7 +90,31 @@ function initializeQueryBuilderForm(form) {
 		.forEach(dateField => dateField.setAttribute("max", today));
 	// handle the submission event by encoding the form's values as a Solr query URL
 	form.addEventListener('submit', handleSubmitEvent);
+	
+	// The wt ("writer type) parameter to Solr queries selects a "writer" component to render the result document in some particular format.
+	// For particular values of the wt parameter, there are other parameters defined which are specific to that Writer. To deal with this, we
+	// listen to the changing value of the field named "wt" and enable and disable those dependent controls appropriately.
+	Array
+		.from(form.elements)
+		.filter(element => element.name === "wt")
+		.forEach(wt => wt.addEventListener("change", handleWriterChangedEvent));
 }
+
+function handleWriterChangedEvent(changeEvent) {
+	const wt = event.target.value;
+	const form = event.target.form;
+	console.log("writer parameter changed to", wt);
+	const controls = Array
+		.from(form.elements)
+		.filter(element => element.name != undefined)
+		.filter(element => element.classList.contains("control")); // only if the element has been tagged as a "control" (rather than "metadata") parameter
+	controls
+		.filter(element => element.name === 'tr') // tr parameter only used when wt=xslt
+		.forEach(tr => tr.disabled = (wt != 'xslt'));
+	controls
+		.filter(element => element.name.startsWith('csv.')) // csv.* parameters only used when wt=csv
+		.forEach(tr => tr.disabled = (wt != 'csv'));
+};
 
 function handleSubmitEvent(submitEvent) {
 	// encode the form fields into a URL, and fire a "urlChanged" event
@@ -143,6 +167,7 @@ function encodeQueryControlParameters(elements) {
 	// read the contents of the form and assemble a query URL
 	return Array
 		.from(elements) // all the elements making up the query builder form
+		.filter(element => !element.disabled) // exclude disabled elements
 		.filter(element => element.name.length > 0) // only elements with a name attribute (because each HTML input relates to the Solr field by sharing the same name)
 		.filter(element => element.value.length > 0) // only if a value is specified
 		.filter(element => element.classList.contains("control")) // only if the element has been tagged as a "control" (rather than "metadata") parameter
@@ -220,27 +245,31 @@ function setFacetValues(form, solrFacetCountResponse) {
 					}
 				)[0];
 			console.log("option container", optionContainer);
-			// the array of facet values for a field is a strange data structure: it's an array in which 
-			// each odd numbered element in the array is a facet value, and each following (even numbered)
-			// element contains the count of records for that value.
-			console.log("option values raw", solrFacetCountResponse.facet_counts.facet_fields[facetField]);
-			const optionValues = solrFacetCountResponse.facet_counts.facet_fields[facetField]
-				.filter(
-					function(arrayElement, arrayIndex) {
-						return (arrayIndex % 2) == 0 // the index is odd (NB array index is zero-based)
-					} 
-				)
-			console.log("option values", optionValues);
-			const option = document.createElement("option");
-			option.append("");
-			optionContainer.append(option);
-			optionValues.forEach(
-				function(optionValue) {
-					const option = document.createElement("option");
-					option.append(optionValue);
-					optionContainer.append(option);
-				}
-			);			
+			if (optionContainer === undefined) {
+				console.error("Could not find the container element to create OPTION elements for field named " + facetField);
+			} else {
+				// the array of facet values for a field is a strange data structure: it's an array in which 
+				// each odd numbered element in the array is a facet value, and each following (even numbered)
+				// element contains the count of records for that value.
+				console.log("option values raw", solrFacetCountResponse.facet_counts.facet_fields[facetField]);
+				const optionValues = solrFacetCountResponse.facet_counts.facet_fields[facetField]
+					.filter(
+						function(arrayElement, arrayIndex) {
+							return (arrayIndex % 2) == 0 // the index is odd (NB array index is zero-based)
+						} 
+					)
+				console.log("option values", optionValues);
+				const option = document.createElement("option");
+				option.append("");
+				optionContainer.append(option);
+				optionValues.forEach(
+					function(optionValue) {
+						const option = document.createElement("option");
+						option.append(optionValue);
+						optionContainer.append(option);
+					}
+				);			
+			}
 		}
 	);
 }
