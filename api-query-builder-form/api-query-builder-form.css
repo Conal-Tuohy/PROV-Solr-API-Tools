@@ -1,4 +1,40 @@
+body {
+	font-family: sans-serif;
+}
+
 form.query-builder {
-	display: grid;
-	
+}
+
+form.query-builder fieldset {
+	display: flex;
+	flex-wrap: wrap;
+	background-color: rgb(197, 232, 108);
+	margin-bottom: 1em;
+	border: none;
+}
+
+form.query-builder label {
+	display: block;
+	font-size: 0.8em;
+	margin: 0.2em;
+}
+
+form.query-builder legend {
+	background-color: rgb(197, 232, 108);
+	padding-left: 0.4em;
+	padding-right: 0.4em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
+}
+
+form.query-builder fieldset div {
+	margin: 0.5em;
+}
+
+form.query-builder button {
+	margin-top: 1.2em;
+	padding-top: 0.3em;
+	padding-bottom: 0.3em;
+	padding-left: 0.5em;
+	padding-right: 0.5em;
 }
