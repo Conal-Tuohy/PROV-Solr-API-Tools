@@ -134,7 +134,7 @@ function handleSubmitEvent(submitEvent) {
 	// the browser should not attempt to submit the form
 	submitEvent.preventDefault();
 	
-	const url = getQueryBaseUrl(form) + '?' + encodeQueryControlParameters(form) + '&q=' + encodeQueryMetadataParameters(form)
+	const url = getQueryBaseUrl(form) + '?' + encodeQueryControlParameters(form) + "&q=" + encodeQueryMetadataParameters(form);
 	
 	// fire the "urlChanged" event
 	const urlChangedEvent = new CustomEvent(
@@ -167,10 +167,10 @@ function encodeQueryMetadataParameters(elements) {
 		.filter(element => element.name.length > 0) // only elements with a name attribute (because each HTML input relates to the Solr field by sharing the same name)
 		.filter(element => element.value.length > 0) // only if a value is specified
 		.filter(element => element.classList.contains("metadata"))  // only if the element has been tagged as a "metadata" (rather than "control") parameter
-		.filter(element => element.type != "checkbox" || element.checked) // don't post the value of unchecked checkboxes
-		.sort(element => element.name);
+		.filter(element => element.type != "checkbox" || element.checked); // don't post the value of unchecked checkboxes
 	let fieldGroups = groupBy(namedFields, field => field.name);
 	let specifiedQuery = fieldGroups
+		.sort(element => element[0].name)
 		.map(
 			function(group) {
 				// group is an array of fields with the same name
@@ -220,10 +220,17 @@ function encodeQueryControlParameters(elements) {
 	// read the contents of the form and assemble a query URL
 	return Array
 		.from(elements) // all the elements making up the query builder form
+		.filter(element => element.classList.contains("control")) // only if the element has been tagged as a "control" (rather than "metadata") parameter
 		.filter(element => !element.disabled) // exclude disabled elements
 		.filter(element => element.name.length > 0) // only elements with a name attribute (because each HTML input relates to the Solr field by sharing the same name)
 		.filter(element => element.value.length > 0) // only if a value is specified
-		.filter(element => element.classList.contains("control")) // only if the element has been tagged as a "control" (rather than "metadata") parameter
+		.sort(
+			function(elementA, elementB) {
+				let a = elementA.name;
+				let b = elementB.name;
+				if (a == b) return 0; else if (a > b) return 1; else return -1;
+			}
+		)
 		.map(element => encodeURIComponent(element.name) + "=" + encodeURIComponent(element.value))
 		.join('&')
 }
