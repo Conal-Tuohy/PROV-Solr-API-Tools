@@ -7,7 +7,6 @@ div.iiif-collection-photo-wall {
 	padding: 20px;
 	min-height: 500px;
 	overflow: hidden;
-	position: relative;
 	font-family: sans-serif;
 }
 
@@ -25,7 +24,7 @@ summary {
 }
 
 details div.image {
-	position: absolute;
+	position: fixed;
 	background-color: rgb(197, 232, 108);
 	border-color: rgb(197, 232, 108);
 	border-width: 10px;
