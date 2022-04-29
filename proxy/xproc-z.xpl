@@ -27,9 +27,14 @@
 	<p:input port='parameters' kind='parameter' primary='true'/>
 	<p:output port="result" primary="true" sequence="true"/>
 	<p:import href="xproc-z-library.xpl"/>
-
 	<p:variable name="relative-uri" select="substring-after(/c:request/@href, '?')"/>
+
+	<!-- the public address of the proxy server sitting in front of XProc-Z (typically Apache on port 80) -->
+	<p:variable name="solr-local-public-base-uri" select="concat('http://', /c:request/c:header[@name='x-forwarded-host']/@value, '/search/query?')"/>
+	<!-- the internal address of this XProc-Z proxy server sitting in front of PROV's API -->
+	<p:variable name="solr-local-internal-base-uri" select="concat(substring-before(/c:request/@href,'?'), '?')"/>
 	<!-- requests for IIIF collections will have wt=xslt and a tr parameter; they must be rewritten to wt=xml -->
+	<!-- and subsequently the response XML should be rewritten to include the original parameters -->
 	<p:variable name="solr-search-uri" select="
 		concat(
 			'https://api.prov.vic.gov.au/search/select?',
@@ -54,8 +59,17 @@
 			<p:add-attribute match="/c:response/c:body" attribute-name="content-type" attribute-value='application/json'/>
 <!--			<p:add-attribute match="/c:response/c:body" attribute-name="content-type" attribute-value='application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"'/>-->
 			<p:viewport match="/c:response/c:body/*">
+				<!-- finesse the Solr response so that it appears to have been produced by the XsltResponseWriter using the "solr-to-iiif.xsl" stylesheet -->
+				<p:string-replace match="response/lst[@name='responseHeader']/lst[@name='params']/str[@name='wt']/text()" replace=" 'xslt' "/>
+				<p:insert match="response/lst[@name='responseHeader']/lst[@name='params']" position="first-child">
+					<p:input port="insertion">
+						<p:inline>
+							<str name="tr">solr-to-iiif.xsl</str>
+						</p:inline>
+					</p:input>
+				</p:insert>
 				<p:xslt>
-					<p:with-param name="base-uri" select="$solr-search-uri"/>
+					<p:with-param name="base-uri" select="$solr-local-public-base-uri"/>
 					<p:input port="stylesheet">
 						<p:documentation>
 							The solr-to-iiif.xsl stylesheet is written to produce JSON-LD using the "text" output method,
