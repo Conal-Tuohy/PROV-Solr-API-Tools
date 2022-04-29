@@ -86,7 +86,7 @@ function initializeQueryBuilderForm(form) {
 	Array
 		.from(form.elements) // all the elements making up the query builder form
 		.filter(element => element.name.length > 0) // only elements with a name attribute (because each HTML input relates to the Solr field by sharing the same name)
-		.filter(element => element.type.toUpperCase() === 'DATE') //
+		.filter(element => element.type === 'date') //
 		.forEach(dateField => dateField.setAttribute("max", today));
 	// handle the submission event by encoding the form's values as a Solr query URL
 	form.addEventListener('submit', handleSubmitEvent);
@@ -161,30 +161,16 @@ function getQueryBaseUrl(form) {
 }
 
 function encodeQueryMetadataParameters(elements) {
-	// TODO group fields by name, and use OR to joing fields which have the same name
-	// TODO handle date queries
+	// group fields by name, and use OR to joing fields which have the same name
 	let namedFields = Array
 		.from(elements) // all the elements making up the query builder form
 		.filter(element => element.name.length > 0) // only elements with a name attribute (because each HTML input relates to the Solr field by sharing the same name)
 		.filter(element => element.value.length > 0) // only if a value is specified
 		.filter(element => element.classList.contains("metadata"))  // only if the element has been tagged as a "metadata" (rather than "control") parameter
+		.filter(element => element.type != "checkbox" || element.checked) // don't post the value of unchecked checkboxes
 		.sort(element => element.name);
-/*	let fieldsGroupedByName = 
-		namedFields.reduce(
-			function(groupsSoFar, currentField, currentIndex, array) {
-				currentGroupName = currentField.name;
-				if (groupsSoFar.has(currentGroupName)) {
-					// get the group and add the current value
-					groupsSoFar.get(currentGroupName).push(currentField);
-				} else {
-					// add the current field as a single-entry array to the map
-					groupsSoFar.set(currentGroupName, [currentField]);
-				}
-			},
-			new Map()
-		);
-*/	let fieldGroups = groupBy(namedFields, field => field.name);
-	return fieldGroups
+	let fieldGroups = groupBy(namedFields, field => field.name);
+	let specifiedQuery = fieldGroups
 		.map(
 			function(group) {
 				// group is an array of fields with the same name
@@ -202,6 +188,12 @@ function encodeQueryMetadataParameters(elements) {
 			}
 		)
 		.join(encodeURIComponent(" AND ")); // use "AND" to join the fields so that all the search conditions must match
+	if (specifiedQuery === "") {
+		// unconstrained search must be represented more explicitly in Solr's query language
+		return encodeURIComponent("*:*");
+	} else {
+		return specifiedQuery;
+	}
  }
  
  function groupBy(array, groupingFunction) {
@@ -276,16 +268,25 @@ function getDownloadFilename(form) {
 
 function encodeMetadataElement(element) {
 	let name= element.name;
-	// TODO handle multiple select: get element.options, 
-	// check each option's selected property and output its value if it's selected
-	// radio buttons probably similar
+	// TODO radio buttons
 	// also handle dates
-	return encodeURIComponent(name + ':(' + element.value + ")");
+	switch (element.type) {
+		case "select-multiple":
+			let options = Array.from(element.selectedOptions) // TODO does this produce an equivalent array? or just grab the first item? 
+			return "(" + options
+				.map(option => encodeURIComponent(name + ":(" + option.value + ")"))
+				.join(encodeURIComponent(" OR ")) // use "OR" to join the fields so that any value will match 
+				+ ")";
+		case "date":
+			return encodeURIComponent(name + ":(" + element.value.replaceAll(":", "\:") + ")");  
+		default:
+			return encodeURIComponent(name + ":(" + element.value + ")");
+	}
 }
 
 function getElementType(element) {
-	if (element.type === undefined) return "TEXT";
-	return element.type.toUpperCase();
+	if (element.type === undefined) return "text";
+	return element.type;
 }
 
 function setFacetValues(form, solrFacetCountResponse) {
