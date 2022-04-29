@@ -161,15 +161,65 @@ function getQueryBaseUrl(form) {
 }
 
 function encodeQueryMetadataParameters(elements) {
+	// TODO group fields by name, and use OR to joing fields which have the same name
 	// TODO handle date queries
-	return Array
+	let namedFields = Array
 		.from(elements) // all the elements making up the query builder form
 		.filter(element => element.name.length > 0) // only elements with a name attribute (because each HTML input relates to the Solr field by sharing the same name)
 		.filter(element => element.value.length > 0) // only if a value is specified
 		.filter(element => element.classList.contains("metadata"))  // only if the element has been tagged as a "metadata" (rather than "control") parameter
-		.map(encodeMetadataElement)
+		.sort(element => element.name);
+/*	let fieldsGroupedByName = 
+		namedFields.reduce(
+			function(groupsSoFar, currentField, currentIndex, array) {
+				currentGroupName = currentField.name;
+				if (groupsSoFar.has(currentGroupName)) {
+					// get the group and add the current value
+					groupsSoFar.get(currentGroupName).push(currentField);
+				} else {
+					// add the current field as a single-entry array to the map
+					groupsSoFar.set(currentGroupName, [currentField]);
+				}
+			},
+			new Map()
+		);
+*/	let fieldGroups = groupBy(namedFields, field => field.name);
+	return fieldGroups
+		.map(
+			function(group) {
+				// group is an array of fields with the same name
+				console.log("writing query for field named", group[0].name);
+				return "(" + group
+					.map(
+						function(element) {
+							console.log("metadata element", element);
+							return element;
+						}
+					)
+					.map(encodeMetadataElement)
+					.join(encodeURIComponent(" OR ")) // use "OR" to join the fields so that any value will match
+				+ ")"; 
+			}
+		)
 		.join(encodeURIComponent(" AND ")); // use "AND" to join the fields so that all the search conditions must match
  }
+ 
+ function groupBy(array, groupingFunction) {
+	return Array.from(
+		array.reduce(
+			function (map, value) {
+				let key = groupingFunction(value);
+				if (!map.has(key)) {
+					map.set(key, []);
+				}
+				map.get(key).push(value);
+				return map
+			}, 
+			new Map()
+		).values()
+	);
+}
+ 
 
 function encodeQueryControlParameters(elements) {
 	// gets the Solr query parameters encoded in the form
