@@ -27,7 +27,10 @@
 	</xsl:variable>
 	<xsl:template match="/response">
 		<xsl:text>{
-	"@context": "http://iiif.io/api/presentation/3/context.json",
+	"@context": [
+		"http://iiif.io/api/image/2/context.json",
+		"http://iiif.io/api/presentation/3/context.json"
+	],
 	"id": "</xsl:text>
 	<xsl:call-template name="json-string"><xsl:with-param name="string" select="$collection-id"/></xsl:call-template>
 	<xsl:text>",
@@ -76,11 +79,13 @@
 					"id": "</xsl:text><xsl:value-of select="str[@name='iiif-thumbnail']"/><xsl:text>",
 					"type": "Image",
 					"format": "image/jpeg",
-					"service": {
-						"@context": "http://iiif.io/api/image/2/context.json",
-						"@id": "</xsl:text><xsl:value-of select="substring-before(str[@name='iiif-thumbnail'], '/full/!200,200/0/default.jpg')"/><xsl:text>",
+					"service": [{
+					<!-- TODO sort out this service -->
+					<!-- should we just be implementing Presentation 2 since that's what the Loris server does? -->
+<!--						"@context": "http://iiif.io/api/image/2/context.json",
+-->						"@id": "</xsl:text><xsl:value-of select="substring-before(str[@name='iiif-thumbnail'], '/full/!200,200/0/default.jpg')"/><xsl:text>",
 						"profile": "http://iiif.io/api/image/2/level2.json"
-					}
+					}]
 				}
 			]
 		}</xsl:text>
