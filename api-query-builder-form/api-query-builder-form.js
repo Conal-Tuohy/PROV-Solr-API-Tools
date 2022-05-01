@@ -11,6 +11,13 @@
 		initializeQueryBuilderForm(document.getElementById('my-query-builder-form'));
 	
 */
+document.addEventListener("DOMContentLoaded", initializeQueryBuilderForms);
+
+function initializeQueryBuilderForms(event) {
+	// initialize all the query builder forms on the page
+	const queryBuilderForms = document.querySelectorAll("form.query-builder");
+	queryBuilderForms.forEach(initializeQueryBuilderForm);
+}
 
 
 // attach controller functions to an HTML5 form so that it can deal with a Solr back end 

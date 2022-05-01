@@ -94,12 +94,8 @@
 		</form>
 		<!-- automate the query builder form -->
 		<script>
-			const form = document.getElementById('my-query-builder-form');
-			// attach controller functions to the form
-			initializeQueryBuilderForm(form);
 			// When the user submits the query builder form, the form will emit a "urlChanged" event. 
 			// By adding a function to listen for this event, we can receive the updated query URL.
-
 			function handleSolrUrlChange(event) {
 				const queryUrlDisplay = document.getElementById('query-url-display');
 				if (event.detail.submitter.name === "download") {
@@ -118,6 +114,7 @@
 					document.getElementById('my-query-builder-form-results').src= event.detail.url;
 				}
 			};
+			const form = document.getElementById('my-query-builder-form');
 			form.addEventListener('urlChanged', handleSolrUrlChange);
 		</script>
 	</body>
