@@ -55,12 +55,7 @@ function initializeQueryBuilderForm(form) {
 			"?q=" + 
 			encodeQueryMetadataParameters(
 				Array.from(form.elements)
-					.filter(
-						function(element) {
-							console.log("element type", element.type);
-							return element => (element.type == "hidden")
-						}
-					)
+					.filter(element => (element.type == "hidden"))
 			);
 		const facetRetrievalQueryUrl = 
 			baseQueryUrl + "&wt=json&rows=0&facet=true&facet.mincount=1" + 
@@ -168,6 +163,7 @@ function encodeQueryMetadataParameters(elements) {
 		.filter(element => element.value.length > 0) // only if a value is specified
 		.filter(element => element.classList.contains("metadata"))  // only if the element has been tagged as a "metadata" (rather than "control") parameter
 		.filter(element => element.type != "checkbox" || element.checked); // don't post the value of unchecked checkboxes
+		
 	let fieldGroups = groupBy(namedFields, field => field.name);
 	let specifiedQuery = fieldGroups
 		.sort(element => element[0].name)
