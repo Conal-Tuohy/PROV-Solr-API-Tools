@@ -1,8 +1,5 @@
-body {
-	font-family: sans-serif;
-}
-
 form.query-builder {
+	font-family: sans-serif;
 }
 
 form.query-builder fieldset {
@@ -39,6 +36,6 @@ form.query-builder button {
 	padding-right: 0.5em;
 }
 
-a.display-url {
+form.query-builder a.display-url {
 	text-decoration: none;
 }
