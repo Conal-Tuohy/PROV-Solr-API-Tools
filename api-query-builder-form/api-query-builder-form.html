@@ -5,16 +5,61 @@
 		<link rel="stylesheet" href="api-query-builder-form.css"> 
 	</head>
 	<body>
+		<!-- 
+			Query builder form
+
+			The form's action attribute specifies the base URL of the Solr API; in production this should be set to
+			"https://api.prov.vic.gov.au/search/query"
+			
+			The form's class must include the token "query-builder". The linked api-query-builder-form.js JS library will Solr-enable any 
+			HTML form which has this class name.
+			
+			NB The id attributes used in this page are arbitrary and bear no necessary relation to Solr field names. They are merely used
+			to link labels to form elements, and the form's id ("my-query-builder-form") is used to identify the form to JS code below. 
+
+			
+			Metadata fields
+			
+			Elements within the form which have the class "metadata" will be treated as referring to Solr fields. These elements should have a
+			'name' attribute that matches the name of a Solr field. The elements values will be serialized into the URL as portions of the "q"
+			query parameter.
+			
+			The JS code will create 'option' elements for any 'select' element or 'datalist' element which doesn't contain any 'option' elements.
+			The values of these options will be drawn from Solr by running a facet query when the form initializes. The facet query will be based
+			only on the value of 'hidden' inputs in the form, e.g. if you have a hidden input with name 'series_id' and value "12903", then other
+			fields will be populated with only those options whose values co-occur with series_id:12903.
+			
+			
+			Query control parameters
+			
+			Elements within the form which have the class "control" will be treated as providing "control" parameters for Solr (any parameter except 'q').
+			These must include an element named 'wt' (Writer Type) which specifies the Solr ResponseWriter and hence output format. When the
+			'wt' parameter can be set to 'xslt', Solr will require an additional parameter named 'tr' (TRansform) which specifies the XSLT stylesheet to use.
+			This 'tr' parameter could be specified using a hidden input, or by a select element (if multiple XSLT stylesheets are installed on the Solr server).
+			The JS will enable and disable the 'tr' element depending on the value of the 'wt' parameter, so that if 'wt' is not set to 'xslt', no 'tr' parameter
+			will be included in the query URL. Similarly, CSV-specific parameters will be enabled only when the wt parameter = 'csv'. 
+			
+			These "control" fields in the form may also include elements named "rows", "number", "sort", etc. For details of Solr's query parameters, see 
+			https://solr.apache.org/guide/8_11/common-query-parameters.html
+			
+			
+			Form submission and processing
+			
+			When the user submits the query builder form, the form emits a "urlChanged" event. By adding a function to listen for this event, the
+			page can then use the URL to actually make an HTTP request. The urlChanged event includes a "detail" member which in turn
+			includes 	three members:
+			
+			▶ "submitter" which identifies the button used to submit the form.
+			▶ "url" which specifies the actual query URL;
+			▶ "downloadFilename" which is a suggested download filename, such as e.g. "query-results.csv" or "query-results.json".
+			
+			In this particular form, the "urlChanged" event listener checks the "submitter" to see if the user clicked either a button named "download" or "search",
+			and either attempts to download the URL or else sets it as the source of an iframe and a display hyperlink.  			
+		-->
 		<!-- this JavaScript library contains functions to connect an HTML5 form to a Solr server -->
 		<script src="api-query-builder-form.js"></script>
-		<!-- NB The id attribute used in this page are arbitrary and bear no necessary relation to Solr field names. -->
-		<!-- This allows multiple instances of a form to embedded in a single page without conflicting. -->
-		<h1>PROV API Query Builder Form</h1>
-		<!-- The form's id ("my-query-builder-form") is used to identify the form to JS functions below -->
-		<!-- The form's action attribute specifies the base URL of the Solr API -->
 		<form id="my-query-builder-form" action="/search/query" class="query-builder">
-			<!-- Elements with the class "metadata" correspond to Solr fields. -->
-			<!-- Each such input should have a name attribute which matches the name of a Solr field -->
+			<h1>PROV API Query Builder Form</h1>
 			<fieldset class="metadata">
 				<legend>Metadata fields</legend>
 				<div>
@@ -24,20 +69,16 @@
 				<div>
 					<label for="series-input">Series</label>
 					<input id="series-input" name="series_id" list="series-list" class="metadata">
-					<!-- A datalist element will be populated by options with values taken from facet buckets of the corresponding Solr field -->
-					<!-- This datalist will be populated with option elements whose value attributes will be drawn from the Solr field "is_part_of_series.id" -->
 					<datalist id="series-list">
 					</datalist>
 				</div>
 				<div>
 					<label for="record-form-select">Record form</label>
 					<select id="record-form-select" name="record_form" class="metadata" multiple>
-						<!-- No option elements are specified, so the JS initialization will load facets from Solr -->
 					</select>
 				</div>
 				<div>
 					<label for="start_dt-input">Start date</label>
-					<!-- TODO do I need class="from"/"to"? Can't the query-builder work out which is which based on the data entered? -->
 					<input id="start_dt-input" name="start_dt" type="date" min="1800-01-01" class="metadata">
 				</div>
 				<div>
@@ -67,9 +108,7 @@
 						<option label="XML">xml</option>
 						<option label="IIIF">xslt</option>
 					</select>
-					<!-- when XSLT is requested, a stylesheet must be specified -->
 					<input type="hidden" name="tr" class="control" value="solr-to-iiif.xsl">
-					<!-- when CSV is requested, if any fields have multiple values, separate them with "|" rather than a comma -->
 					<input type="hidden" name="csv.mv.separator" class="control" value="|">
 				</div>
 				<div>
@@ -92,10 +131,7 @@
 				</iframe>
 			</fieldset>
 		</form>
-		<!-- automate the query builder form -->
 		<script>
-			// When the user submits the query builder form, the form will emit a "urlChanged" event. 
-			// By adding a function to listen for this event, we can receive the updated query URL.
 			function handleSolrUrlChange(event) {
 				const queryUrlDisplay = document.getElementById('query-url-display');
 				if (event.detail.submitter.name === "download") {
