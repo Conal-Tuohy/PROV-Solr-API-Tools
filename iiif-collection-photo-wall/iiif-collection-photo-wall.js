@@ -6,8 +6,6 @@
 // 	find the div.item which is visible and hide it
 // 
 // add a "close" widget to close the window
-//
-// add a "go to catalogue" link to the window
 
 // when the document loads, initialize all the photo walls
 window.addEventListener('load', initializeIIIFCollectionPhotoWalls);
@@ -49,14 +47,16 @@ function queryIIIFCollection(photoWall) {
 	const queryURL = photoWall.getAttribute("data-iiif-collection-url");
 	console.debug("Querying IIIF collection " + queryURL + " ...");
 	// TODO check queryURL is good to go
-	var request = new XMLHttpRequest();
-	request.responseType = "json";
-	request.open("GET", queryURL);
-	request.onload = function(e) {
-		var collection = request.response;
-		displayIIIFCollection(collection, photoWall);
+	if (queryURL.length > 0) {
+		var request = new XMLHttpRequest();
+		request.responseType = "json";
+		request.open("GET", queryURL);
+		request.onload = function(e) {
+			var collection = request.response;
+			displayIIIFCollection(collection, photoWall);
+		}
+		request.send();
 	}
-	request.send();
 }
 
 // display the collection on the photo wall
@@ -70,20 +70,22 @@ function displayIIIFManifest(manifest, photoWall) {
 	tileDiv.className = "tile";
 	let itemDiv = document.createElement("div"); // a div within the tile which contains the image and metadata
 	itemDiv.className = "item";
-	let thumbnail = document.createElement("img");
-	thumbnail.src= manifest.thumbnail[0].id;
-	thumbnail.loading = "lazy";
+	let thumbnailImage = document.createElement("img");
+	thumbnailImage.src= manifest.thumbnail[0].id;
+	thumbnailImage.loading = "lazy";
 	let details = document.createElement("details");
 	let summary = document.createElement("summary");
-	summary.append(thumbnail);
+	summary.append(thumbnailImage);
 	details.append(summary)
 	let photoTile = document.createElement("div"); // a div which displays the metadata and has the image as a background
 	photoTile.className = "image";
+	let thumbnail = manifest.thumbnail[0];
+	let thumbnailService = Array.from(thumbnail.service).find(service => service.type === "ImageService2");
 	photoTile.setAttribute(
 		"style", 
 		"background-image: " +
-			"url('" + manifest.thumbnail[0].service["@id"] + "/full/!400,400/0/default.jpg" + "'), " + 
-			"url('" + manifest.thumbnail[0].id + "')"
+			"url('" + thumbnailService.id + "/full/!400,400/0/default.jpg" + "'), " + 
+			"url('" + thumbnail.id + "')"
 	);
 	// add navigation controls
 	let closeButton = document.createElement("button");
