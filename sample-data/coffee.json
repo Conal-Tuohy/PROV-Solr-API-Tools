@@ -1,0 +1,771 @@
+{
+	"@context": [
+		"http://iiif.io/api/image/2/context.json",
+		"http://iiif.io/api/presentation/3/context.json"
+	],
+	"id": "http://localhost/search/query?rows=40&tr=solr-to-iiif.xsl&wt=xslt&q=(text%3A(coffee))%20AND%20(series_id%3A((12903%2012800%2010742%208357%201396%2014517%2010516)))%20AND%20(iiif-manifest%3A(*))",
+	"type": "Collection",
+	"label": { "en": [ "Search Results" ] },
+	"requiredStatement": {
+		"label": { "en": [ "Attribution" ] },
+		"value": { "en": [ "Public Record Office Victoria" ] }
+	},
+	"items": [
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AD/AD/FC/7D/-5613-11EB-BE8C-41FA334C3424/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D196 Coffee blossom" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ADADFC7D-5613-11EB-BE8C-41FA334C3424",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AD%2FAD%2FFC%2F7D%2F-5613-11EB-BE8C-41FA334C3424%2Fimages%2F1%2Ffiles%2F14517-00012-D0196.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AD%2FAD%2FFC%2F7D%2F-5613-11EB-BE8C-41FA334C3424%2Fimages%2F1%2Ffiles%2F14517-00012-D0196.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AD/AA/C8/2B/-5613-11EB-BE8C-0FA8342FF25B/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D194 Picking coffee cherries" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ADAAC82B-5613-11EB-BE8C-0FA8342FF25B",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AD%2FAA%2FC8%2F2B%2F-5613-11EB-BE8C-0FA8342FF25B%2Fimages%2F1%2Ffiles%2F14517-00012-D0194.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AD%2FAA%2FC8%2F2B%2F-5613-11EB-BE8C-0FA8342FF25B%2Fimages%2F1%2Ffiles%2F14517-00012-D0194.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AD/A6/34/48/-5613-11EB-BE8C-350F2CE7B00F/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D191 Coffee \"fazenda\", Brazil" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ADA63448-5613-11EB-BE8C-350F2CE7B00F",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AD%2FA6%2F34%2F48%2F-5613-11EB-BE8C-350F2CE7B00F%2Fimages%2F1%2Ffiles%2F14517-00012-D0191.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AD%2FA6%2F34%2F48%2F-5613-11EB-BE8C-350F2CE7B00F%2Fimages%2F1%2Ffiles%2F14517-00012-D0191.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AD/AC/9C/EC/-5613-11EB-BE8C-FF3D4151D017/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D195 Coffee processing plant or \"benefico\"" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ADAC9CEC-5613-11EB-BE8C-FF3D4151D017",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AD%2FAC%2F9C%2FEC%2F-5613-11EB-BE8C-FF3D4151D017%2Fimages%2F1%2Ffiles%2F14517-00012-D0195.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AD%2FAC%2F9C%2FEC%2F-5613-11EB-BE8C-FF3D4151D017%2Fimages%2F1%2Ffiles%2F14517-00012-D0195.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AD/A4/AD/A7/-5613-11EB-BE8C-4D8B03092DF5/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D190 Coffee beans sorted" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ADA4ADA7-5613-11EB-BE8C-4D8B03092DF5",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AD%2FA4%2FAD%2FA7%2F-5613-11EB-BE8C-4D8B03092DF5%2Fimages%2F1%2Ffiles%2F14517-00012-D0190.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AD%2FA4%2FAD%2FA7%2F-5613-11EB-BE8C-4D8B03092DF5%2Fimages%2F1%2Ffiles%2F14517-00012-D0190.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AD/A1/A0/65/-5613-11EB-BE8C-B5DB600AB95C/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D188 Coffee fruit ('Cherries') on tree" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ADA1A065-5613-11EB-BE8C-B5DB600AB95C",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AD%2FA1%2FA0%2F65%2F-5613-11EB-BE8C-B5DB600AB95C%2Fimages%2F1%2Ffiles%2F14517-00012-D0188.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AD%2FA1%2FA0%2F65%2F-5613-11EB-BE8C-B5DB600AB95C%2Fimages%2F1%2Ffiles%2F14517-00012-D0188.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AD/A7/93/D9/-5613-11EB-BE8C-6566F8DCB6F2/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D192 Coffee in bags loaded on ship" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ADA793D9-5613-11EB-BE8C-6566F8DCB6F2",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AD%2FA7%2F93%2FD9%2F-5613-11EB-BE8C-6566F8DCB6F2%2Fimages%2F1%2Ffiles%2F14517-00012-D0192.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AD%2FA7%2F93%2FD9%2F-5613-11EB-BE8C-6566F8DCB6F2%2Fimages%2F1%2Ffiles%2F14517-00012-D0192.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AD/A8/F3/6A/-5613-11EB-BE8C-1FF6E409C632/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D193 Coffee beans drying" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ADA8F36A-5613-11EB-BE8C-1FF6E409C632",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AD%2FA8%2FF3%2F6A%2F-5613-11EB-BE8C-1FF6E409C632%2Fimages%2F1%2Ffiles%2F14517-00012-D0193.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AD%2FA8%2FF3%2F6A%2F-5613-11EB-BE8C-1FF6E409C632%2Fimages%2F1%2Ffiles%2F14517-00012-D0193.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/0F/D9/0E/BF/-5614-11EB-BE8C-EB8AB8D5B2BD/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "G127 Expresson coffee machine" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/0FD90EBF-5614-11EB-BE8C-EB8AB8D5B2BD",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/0F%2FD9%2F0E%2FBF%2F-5614-11EB-BE8C-EB8AB8D5B2BD%2Fimages%2F1%2Ffiles%2F14517-00021-G0127.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/0F%2FD9%2F0E%2FBF%2F-5614-11EB-BE8C-EB8AB8D5B2BD%2Fimages%2F1%2Ffiles%2F14517-00021-G0127.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AD/A3/27/06/-5613-11EB-BE8C-6DF9B2C6D9F1/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D189 Washing of coffee beans" ] },
+			"summary": { "en": [ "Subject : Coffee" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ADA32706-5613-11EB-BE8C-6DF9B2C6D9F1",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AD%2FA3%2F27%2F06%2F-5613-11EB-BE8C-6DF9B2C6D9F1%2Fimages%2F1%2Ffiles%2F14517-00012-D0189.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AD%2FA3%2F27%2F06%2F-5613-11EB-BE8C-6DF9B2C6D9F1%2Fimages%2F1%2Ffiles%2F14517-00012-D0189.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AB/CD/F1/91/-5613-11EB-BE8C-03E97C17D9A8/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D118 Coffee plantation." ] },
+			"summary": { "en": [ "Subject : BRAZIL - Description" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/ABCDF191-5613-11EB-BE8C-03E97C17D9A8",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AB%2FCD%2FF1%2F91%2F-5613-11EB-BE8C-03E97C17D9A8%2Fimages%2F1%2Ffiles%2F14517-00012-D0118.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AB%2FCD%2FF1%2F91%2F-5613-11EB-BE8C-03E97C17D9A8%2Fimages%2F1%2Ffiles%2F14517-00012-D0118.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/AA/1A/EA/30/-5613-11EB-BE8C-930DD43E238A/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "D69 Winnowing coffee, Sao Paulo." ] },
+			"summary": { "en": [ "Subject : BRAZIL - Description" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/AA1AEA30-5613-11EB-BE8C-930DD43E238A",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/AA%2F1A%2FEA%2F30%2F-5613-11EB-BE8C-930DD43E238A%2Fimages%2F1%2Ffiles%2F14517-00012-D0069.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/AA%2F1A%2FEA%2F30%2F-5613-11EB-BE8C-930DD43E238A%2Fimages%2F1%2Ffiles%2F14517-00012-D0069.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/5E/AF/E6/80/-5615-11EB-BE8C-BDCBE2CAFEBD/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "P115 79(2) - Gold - Getting to the Fields - The Coffee Tent." ] },
+			"summary": { "en": [ "Subject : CLASSROOM PICTURES - V.E.C." ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/5EAFE680-5615-11EB-BE8C-BDCBE2CAFEBD",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/5E%2FAF%2FE6%2F80%2F-5615-11EB-BE8C-BDCBE2CAFEBD%2Fimages%2F1%2Ffiles%2F14517-00045-P0115.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/5E%2FAF%2FE6%2F80%2F-5615-11EB-BE8C-BDCBE2CAFEBD%2Fimages%2F1%2Ffiles%2F14517-00045-P0115.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/40/51/9E/3C/-5613-11EB-BE8C-EDBFCC79F2A0/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "A370 G. Jensen - sterling silver and coffee pot" ] },
+			"summary": { "en": [ "Subject : Art - Secondary Schools" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/40519E3C-5613-11EB-BE8C-EDBFCC79F2A0",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/40%2F51%2F9E%2F3C%2F-5613-11EB-BE8C-EDBFCC79F2A0%2Fimages%2F1%2Ffiles%2F14517-00002-A0370.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/40%2F51%2F9E%2F3C%2F-5613-11EB-BE8C-EDBFCC79F2A0%2Fimages%2F1%2Ffiles%2F14517-00002-A0370.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/3171/8294/46/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "ADV 1459" ] },
+			"summary": { "en": [ "ADVERTISING HOARDING FOR BROOKE'S COFFEE ESSENCE, INGOLA, RM HARDY'S, TIP TOP PAINT, CADBURY'S CHOCOLATE ON SOUTH STATION PLATFORM ; FLEX ; ADVERTISING ; HOARDING" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/9C1EE386-F821-11E9-AE98-2125506CD9EE",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Photographic Collection: Railway Negatives: Alpha-numeric Systems (VPRS12800)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/3171%2F8294%2F46%2Fimages%2F1%2Ffiles%2F12800-p0003-000127-090.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/3171%2F8294%2F46%2Fimages%2F1%2Ffiles%2F12800-p0003-000127-090.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/0B/FB/91/A2/-5615-11EB-BE8C-C746BD68E465/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "N370 Sterling silver coffee pot by Georg Jensen" ] },
+			"summary": { "en": [ "Subject : Art - Secondary Schools" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/0BFB91A2-5615-11EB-BE8C-C746BD68E465",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/0B%2FFB%2F91%2FA2%2F-5615-11EB-BE8C-C746BD68E465%2Fimages%2F1%2Ffiles%2F14517-00040-N0370.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/0B%2FFB%2F91%2FA2%2F-5615-11EB-BE8C-C746BD68E465%2Fimages%2F1%2Ffiles%2F14517-00040-N0370.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/40/45/1B/15/-5613-11EB-BE8C-9BF4EE73A792/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "A363 G. Henning - Coffee pot with blossom design and ivory handle" ] },
+			"summary": { "en": [ "Subject : Art - Secondary Schools" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/40451B15-5613-11EB-BE8C-9BF4EE73A792",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/40%2F45%2F1B%2F15%2F-5613-11EB-BE8C-9BF4EE73A792%2Fimages%2F1%2Ffiles%2F14517-00002-A0363.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/40%2F45%2F1B%2F15%2F-5613-11EB-BE8C-9BF4EE73A792%2Fimages%2F1%2Ffiles%2F14517-00002-A0363.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/E5/1E/3A/11/-5614-11EB-BE8C-51B70F35BA12/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "M508 Coffee time in Arab camp" ] },
+			"summary": { "en": [ "Subject : Saudi Arabia - people" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/E51E3A11-5614-11EB-BE8C-51B70F35BA12",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/E5%2F1E%2F3A%2F11%2F-5614-11EB-BE8C-51B70F35BA12%2Fimages%2F1%2Ffiles%2F14517-00037-M0508.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/E5%2F1E%2F3A%2F11%2F-5614-11EB-BE8C-51B70F35BA12%2Fimages%2F1%2Ffiles%2F14517-00037-M0508.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/0B/F0/6E/0B/-5615-11EB-BE8C-59202F01DC45/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "N363 Coffee pot with blossom design and ivory handle, Georg Jenson" ] },
+			"summary": { "en": [ "Subject : Art - Secondary Schools" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/0BF06E0B-5615-11EB-BE8C-59202F01DC45",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/0B%2FF0%2F6E%2F0B%2F-5615-11EB-BE8C-59202F01DC45%2Fimages%2F1%2Ffiles%2F14517-00040-N0363.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/0B%2FF0%2F6E%2F0B%2F-5615-11EB-BE8C-59202F01DC45%2Fimages%2F1%2Ffiles%2F14517-00040-N0363.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/4171/8154/33/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "ADV 0023" ] },
+			"summary": { "en": [ "FIVE U CLASS LOUVRE VANS, 6 WHEEL, ADVERTISING GRIFFITH'S CARAMINTS, SIGNAL BRAND TEA COFFEE AND COCOA, CAMEO MILK CHOCOLATES, BLACK CROW THROAT DROPS ; FLEX ; FREIGHT ; LOUVRE VAN" ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/670DAFB6-F821-11E9-AE98-A13B9E23FDDD",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Photographic Collection: Railway Negatives: Alpha-numeric Systems (VPRS12800)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/4171%2F8154%2F33%2Fimages%2F1%2Ffiles%2F12800-p0003-000002-120.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/4171%2F8154%2F33%2Fimages%2F1%2Ffiles%2F12800-p0003-000002-120.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}, 
+		{
+			"id": "https://images.prov.vic.gov.au/manifests/EB/B7/DF/C0/-5615-11EB-BE8C-D53448AEA18C/images/manifest.json",
+			"type": "Manifest",
+			"label": { "en": [ "T636 [Unidentified male teacher assessing young male student, Bendigo Special Services Complex, ca. 1970s. View shows man kneeling in front of a young male student and reaching towards a soft toy sitting on a chair. There is a small coffee table to the left of the man]." ] },
+			"summary": { "en": [ "Subject : Education-Victoria-Special Services Complex-Bendigo." ] },
+			"homepage": [
+				{
+					"id": "https://prov.vic.gov.au/archive/EBB7DFC0-5615-11EB-BE8C-D53448AEA18C",
+					"type": "Text",
+					"label": { "en": [ "catalogue page" ] },
+					"format": "text/html"
+				}
+			],
+			"metadata": {
+				"Jurisdictional coverage": { "en": ["Victoria"] } ,
+				"Location": { "en": ["North Melbourne", "Online"] } ,
+				"Start date": { "en": ["1753-01-01"] } ,
+				"End date": { "en": ["3000-12-31"] } ,
+
+				"Series": { "en": [
+					"Negatives of Photographs [Publications Branch] (VPRS14517)"
+				] }
+			},
+			"thumbnail": [
+				{
+					"id": "https://images.prov.vic.gov.au/loris/EB%2FB7%2FDF%2FC0%2F-5615-11EB-BE8C-D53448AEA18C%2Fimages%2F1%2Ffiles%2F14517-00052-T0636.tif/full/!200,200/0/default.jpg",
+					"type": "Image",
+					"format": "image/jpeg",
+					"service": [{
+						"id": "https://images.prov.vic.gov.au/loris/EB%2FB7%2FDF%2FC0%2F-5615-11EB-BE8C-D53448AEA18C%2Fimages%2F1%2Ffiles%2F14517-00052-T0636.tif",
+						"type": "ImageService2",
+						"profile": "http://iiif.io/api/image/2/level2.json"
+					}]
+				}
+			]
+		}
+	]
+}

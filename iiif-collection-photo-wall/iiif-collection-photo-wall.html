@@ -3,7 +3,9 @@
 	<head>
 		<title>PROV API IIIF Collection Photo Wall</title>
 		<style type="text/css">
-			font-family: sans-serif;
+			body {
+				font-family: sans-serif;
+			}
 		</style>
 		<link rel="stylesheet" href="iiif-collection-photo-wall.css"> 
 	</head>
@@ -13,12 +15,14 @@
 		<!-- this JavaScript library contains functions to query a IIIF Collection service and present the result as a "photo wall" -->
 		<script src="iiif-collection-photo-wall.js"></script>
 		<h1>Photo Wall demo</h1>
-		<p>This page displays a photo wall visualization of a IIIF Collection</p>
+		<p>This page displays a photo wall visualization of a IIIF Collection driven by a simple search form</p>
 		<form id="photo-wall-search-form" action="/search/query" class="query-builder">
 			<label for="text-input">Keywords:</label>
 			<!-- search fields in the Solr database -->
 			<input id="text-input" name="text" type="text" class="metadata" placeholder="keywords...">
-			<input type="hidden" name="series_id" class="metadata" value="(12903 12800 10742 8357 1396 14517 10516)"><!-- TODO check these series id values identify the full set of "photographic" series -->
+			<!-- these series id values identify all the "photographic" series which have been digitised so far -->
+			<input type="hidden" name="series_id" class="metadata" value="(12903 12800 10742 8357 1396 14517 10516)">
+			<!-- only records which have a IIIF manifest -->
 			<input type="hidden" name="iiif-manifest" class="metadata" value="*">
 			<!-- Solr parameters wt and tr together control the output format of the Solr query -->
 			<input type="hidden" name="wt" class="control" value="xslt">
@@ -26,18 +30,15 @@
 			<input type="hidden" name="rows" class="control" value="40">
 			<input type="submit" value="Search">
 		</form>
-		<div id="photo-wall" data-iiif-collection-url="/sample-data/trains.json" class="iiif-collection-photo-wall">
+		<div id="photo-wall" data-iiif-collection-url="" class="iiif-collection-photo-wall">
 		</div>
 		<script>
-			const form = document.getElementById('photo-wall-search-form');
-			// attach controller functions to the form
-			initializeQueryBuilderForm(form);
 			// When the user submits the query builder form, the form will emit a "urlChanged" event. 
 			// By adding a function to listen for this event, we can receive the updated query URL.
-
 			function handleSolrUrlChange(event) {
 				document.getElementById('photo-wall').setAttribute("data-iiif-collection-url", event.detail.url);
 			};
+			const form = document.getElementById('photo-wall-search-form');
 			form.addEventListener('urlChanged', handleSolrUrlChange);
 		</script>		
 	</body>

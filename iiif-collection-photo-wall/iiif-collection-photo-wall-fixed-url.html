@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>PROV API IIIF Collection Photo Wall</title>
+		<style type="text/css">
+			body {
+				font-family: sans-serif;
+			}
+		</style>
+	</head>
+	<body>
+		<h1>Photo Wall demo</h1>
+		<p>This page displays a photo wall visualization of a IIIF Collection specified by a fixed query URL</p>
+		
+		<!-- 
+			These three elements taken together are enough to define a photo wall embedded in a page:
+			The <script> element links to the javascript which defines the photo wall's behaviour.
+			The <link> element links to the CSS which defines its visual design.
+			The <div> provides the container in which the photo wall appears, and links to the IIIF Collection data 
+		-->
+		<script src="iiif-collection-photo-wall.js"></script>
+		<link rel="stylesheet" href="iiif-collection-photo-wall.css"> 
+		<div id="photo-wall" data-iiif-collection-url="../sample-data/coffee.json" class="iiif-collection-photo-wall"></div>
+		
+	</body>
+</html>
