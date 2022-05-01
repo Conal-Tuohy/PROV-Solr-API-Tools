@@ -144,7 +144,7 @@
 					downloadLink.click();
 				} else { 
 					// update the "query-url-display" link so that it displays (and links to) the query URL produced by the form
-					queryUrlDisplay.innerText = event.detail.url;
+					queryUrlDisplay.innerText = decodeURI(event.detail.url);
 					queryUrlDisplay.href = event.detail.url;
 					// update the "my-query-builder-form-results" iframe so that it displays the query results
 					document.getElementById('my-query-builder-form-results').src= event.detail.url;
