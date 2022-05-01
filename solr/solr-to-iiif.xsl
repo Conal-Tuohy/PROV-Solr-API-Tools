@@ -80,10 +80,8 @@
 					"type": "Image",
 					"format": "image/jpeg",
 					"service": [{
-					<!-- TODO sort out this service -->
-					<!-- should we just be implementing Presentation 2 since that's what the Loris server does? -->
-<!--						"@context": "http://iiif.io/api/image/2/context.json",
--->						"@id": "</xsl:text><xsl:value-of select="substring-before(str[@name='iiif-thumbnail'], '/full/!200,200/0/default.jpg')"/><xsl:text>",
+						"id": "</xsl:text><xsl:value-of select="substring-before(str[@name='iiif-thumbnail'], '/full/!200,200/0/default.jpg')"/><xsl:text>",
+						"type": "ImageService2",
 						"profile": "http://iiif.io/api/image/2/level2.json"
 					}]
 				}
