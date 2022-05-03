@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<title>PROV API Query Builder</title>
-		<link rel="stylesheet" href="api-query-builder-form.css"> 
+		<link rel="stylesheet" href="api-query-builder-form.css">
 	</head>
 	<body>
 		<!-- 
@@ -64,7 +64,7 @@
 				<legend>Metadata fields</legend>
 				<div>
 					<label for="text-input">Text</label>
-					<input id="text-input" name="text" type="text" class="metadata">
+					<input id="text-input" name="text" type="text" class="metadata phrase">
 				</div>
 				<div>
 					<label for="series-input">Series</label>
@@ -79,11 +79,13 @@
 				</div>
 				<div>
 					<label for="start_dt-input">Start date</label>
-					<input id="start_dt-input" name="start_dt" type="date" min="1800-01-01" class="metadata">
+					<!-- NB here the "end" class specifies that the queried value marks the end of the range of acceptable values -->
+					<input id="start_dt-input" name="start_dt" type="date" min="1800-01-01" class="metadata end">
 				</div>
 				<div>
 					<label for="end_dt-input">End date</label>
-					<input id="end_dt-input" name="end_dt" type="date" min="1800-01-01" class="metadata">
+					<!-- NB here the "start" class specifies that the user-supplied value marks the start of the range of acceptable values -->
+					<input id="end_dt-input" name="end_dt" type="date" min="1800-01-01" class="metadata start">
 				</div>
 				<div>
 					<label for="iiif-manifest-input">IIIF manifest</label>

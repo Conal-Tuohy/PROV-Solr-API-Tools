@@ -282,15 +282,35 @@ function encodeMetadataElement(element) {
 	// also handle dates
 	switch (element.type) {
 		case "select-multiple":
-			let options = Array.from(element.selectedOptions) // TODO does this produce an equivalent array? or just grab the first item? 
+			let options = Array.from(element.selectedOptions) 
 			return "(" + options
-				.map(option => encodeURIComponent(name + ":(" + option.value + ")"))
+				.map(option => encodeURIComponent(name + ":\"" + escapeMetadataElementValue(option.value) + "\""))
 				.join(encodeURIComponent(" OR ")) // use "OR" to join the fields so that any value will match 
 				+ ")";
-		case "date":
-			return encodeURIComponent(name + ":(" + element.value.replaceAll(":", "\:") + ")");  
 		default:
-			return encodeURIComponent(name + ":(" + element.value + ")");
+			if (element.classList.contains("start")) {
+				return encodeURIComponent(name + ":[" + escapeMetadataElementValue(element) + " TO *]");
+			} else if (element.classList.contains("end")) {
+				return encodeURIComponent(name + ":[* TO " + escapeMetadataElementValue(element) + "]");
+			} else if (element.classList.contains("phrase")) {
+				return encodeURIComponent(name + ":\"" + escapeMetadataElementValue(element) + "\"");
+			} else {
+				return encodeURIComponent(name + ":(" + escapeMetadataElementValue(element) + ")");
+			}
+	}
+}
+
+function escapeMetadataElementValue(element) {
+	if (['hidden', 'checkbox'].includes(element.type)) {
+		// Hidden and checkbox fields are not shown to the user, and are assumed to have already been escaped by the form 
+		// author as required, and will not be escaped here, so they may include wildcards such as * which we don't want to escape.
+		return element.value;
+	} else {
+		// These fields will be shown to the user or will be entered by the user, so they will need escaping.
+		// escape any reserved tokens or special characters (i.e. with significance to Solr's query parser) contained in the value
+		// see https://solr.apache.org/guide/8_11/the-standard-query-parser.html#escaping-special-characters
+		const reserved = new RegExp("(\\+)|(-)|(&&)|(\\|\\|)|(!)|(\\()|(\\))|(\\{)|(\\})|(\\[)|(\\])|(\\^)|(\")|(\\~)|(\\*)|(\\?)|(\\:)|(\\/)|(\\\\)", "g");
+		return element.value.replace(reserved, "\\$&");
 	}
 }
 
