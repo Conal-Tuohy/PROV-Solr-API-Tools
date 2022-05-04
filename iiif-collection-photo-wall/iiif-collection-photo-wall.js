@@ -84,7 +84,7 @@ function displayIIIFManifest(manifest, photoWall) {
 	photoTile.setAttribute(
 		"style", 
 		"background-image: " +
-			"url('" + thumbnailService.id + "/full/!400,400/0/default.jpg" + "'), " + 
+			"url('" + thumbnailService.id + "/full/!800,800/0/default.jpg" + "'), " + 
 			"url('" + thumbnail.id + "')"
 	);
 	// add navigation controls
