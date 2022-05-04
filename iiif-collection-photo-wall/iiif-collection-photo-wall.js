@@ -101,17 +101,20 @@ function displayIIIFManifest(manifest, photoWall) {
 			"iiif-label"
 		)
 	);
-	// copy the IIIF "metadata" object into an HTML table
-	Object.entries(manifest.metadata).forEach(
-		function(entry) {
-			metadataTable.append(
-				createMetadataRow(
-					entry[0],
-					entry[1],
-					"iiif-metadata"
-				)
-			);
-		}
+	// copy some of the IIIF "metadata" object into an HTML table
+	const metadataToDisplay = ['Series']; // add names of desired fields to this array
+	Object.entries(manifest.metadata)
+		.filter(entry => metadataToDisplay.includes(entry[0]))
+		.forEach(
+			function(entry) {
+				metadataTable.append(
+					createMetadataRow(
+						entry[0],
+						entry[1],
+						"iiif-metadata"
+					)
+				);
+			}
 	);
 	photoTile.append(metadataTable);
 	let catalogueLinkPara = document.createElement("p");
