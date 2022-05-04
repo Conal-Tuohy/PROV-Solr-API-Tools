@@ -61,8 +61,8 @@
 				<!-- generate "metadata" properties from the fields listed -->
 				<xsl:apply-templates mode="metadata" select="*[@name='jurisdictional_coverage']"/>
 				<xsl:apply-templates mode="metadata" select="*[@name='location']"/>
-				<xsl:apply-templates mode="metadata" select="*[@name='start_dt']"/>
-				<xsl:apply-templates mode="metadata" select="*[@name='end_dt']"/>
+				<xsl:apply-templates mode="metadata" select="*[@name='start_dt'][. != '1753-01-01T00:00:00Z']"/>
+				<xsl:apply-templates mode="metadata" select="*[@name='end_dt'][. != '3000-12-31T00:00:00Z']"/>
 				<xsl:text>
 				"Series": { "en": [</xsl:text>
 						<!-- TODO check: can a record really be part of multiple series? this is implied by the multi-valued nature of the is_part_of_series field -->
