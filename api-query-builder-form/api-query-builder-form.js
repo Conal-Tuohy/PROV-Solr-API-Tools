@@ -284,7 +284,7 @@ function encodeMetadataElement(element) {
 		case "select-multiple":
 			let options = Array.from(element.selectedOptions) 
 			return "(" + options
-				.map(option => encodeURIComponent(name + ":\"" + escapeMetadataElementValue(option.value) + "\""))
+				.map(option => encodeURIComponent(element.name + ":\"" + escapeMetadataElementValue(option) + "\""))
 				.join(encodeURIComponent(" OR ")) // use "OR" to join the fields so that any value will match 
 				+ ")";
 		default:
