@@ -84,7 +84,7 @@ function displayIIIFManifest(manifest, photoWall) {
 	photoTile.setAttribute(
 		"style", 
 		"background-image: " +
-			"url('" + thumbnailService.id + "/full/!800,800/0/default.jpg" + "'), " + 
+			"url('" + thumbnailService.id + "/full/!600,600/0/default.jpg" + "'), " + 
 			"url('" + thumbnail.id + "')"
 	);
 	// add navigation controls
@@ -122,7 +122,7 @@ function displayIIIFManifest(manifest, photoWall) {
 	let catalogueLink = document.createElement("a");
 	catalogueLink.setAttribute("href", manifest.homepage[0].id);
 	catalogueLink.setAttribute("target", "_blank");
-	catalogueLink.append("See catalogue record");
+	catalogueLink.append("Go to catalogue record for more details and to download");
 	catalogueLinkPara.append(catalogueLink);
 	photoTile.append(catalogueLinkPara);
 	details.append(photoTile);
