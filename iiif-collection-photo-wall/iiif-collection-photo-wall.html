@@ -20,8 +20,8 @@
 			<label for="text-input">Keywords:</label>
 			<!-- search fields in the Solr database -->
 			<input id="text-input" name="text" type="text" class="metadata phrase" placeholder="keywords...">
-			<!-- these series id values identify all the "photographic" series which have been digitised so far -->
-			<input type="hidden" name="series_id" class="metadata" value="12903 12800 10742 8357 1396 14517 10516">
+			<!-- restrict to records which are classified as Photographs or Images -->
+			<input type="hidden" name="record_form" class="metadata phrase" value="Photograph or Image">
 			<!-- only records which have a IIIF manifest -->
 			<input type="hidden" name="iiif-manifest" class="metadata" value="*">
 			<!-- Solr parameters wt and tr together control the output format of the Solr query -->
