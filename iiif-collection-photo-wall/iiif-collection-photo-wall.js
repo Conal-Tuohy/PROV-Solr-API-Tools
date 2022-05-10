@@ -71,9 +71,11 @@ function displayIIIFCollection(collection, photoWall) {
 	} catch (error) {
 		console.log("Failed to scroll first manifest into view:", error);
 	}
-	collection.seeAlso
-		.filter(object => object.type = "Collection")
-		.forEach(collection => addNextCollectionButton(collection, photoWall));
+	if (Object.hasOwn(collection, 'seeAlso')) {
+		collection.seeAlso
+			.filter(object => object.type = "Collection")
+			.forEach(collection => addNextCollectionButton(collection, photoWall));
+	}
 }
 
 function addNextCollectionButton(collection, photoWall) {
