@@ -85,6 +85,7 @@
 		</xsl:choose>
 	</xsl:template>
 	
+	<!-- The main template renders the Solr response element as a IIIF Collection document -->
 	<xsl:template match="/response">
 		<xsl:text>{
 	"@context": [
@@ -127,7 +128,12 @@
 			"id": "</xsl:text><xsl:value-of select="str[@name='iiif-manifest']"/><xsl:text>",
 			"type": "Manifest",
 			"label": { "en": [ "</xsl:text><xsl:call-template name="json-string"><xsl:with-param name="string" select="str[@name='title']"/></xsl:call-template><xsl:text>" ] },
-			"summary": { "en": [ "</xsl:text><xsl:call-template name="json-string"><xsl:with-param name="string" select="str[@name='presentation_text']"/></xsl:call-template><xsl:text>" ] },
+			"summary": { "en": [ "</xsl:text>
+			<xsl:call-template name="json-string">
+				<xsl:with-param name="allow-markup" select="true()"/>
+				<xsl:with-param name="string" select="str[@name='presentation_text']"/>
+			</xsl:call-template>
+			<xsl:text>" ] },
 			"homepage": [
 				{
 					"id": "https://prov.vic.gov.au/archive/</xsl:text><xsl:value-of select="str[@name='identifier.PID.id']"/><xsl:text>",
@@ -173,18 +179,112 @@
 }
 </xsl:text>
 	</xsl:template>
-	<!-- TODO test this template -->
+	
+	<!-- Prepare a string for output as a IIIF property value -->
+	<!-- Some IIIF string properties are allowed to contain HTML markup, but others are not. -->
+	<!-- A property value which does contain markup must have a root element -->
 	<xsl:template name="json-string">
 		<xsl:param name="string"/>
+		<xsl:param name="allow-markup" select="false()"/>
+		<xsl:variable name="markup-purged-string">
+			<xsl:call-template name="purge-markup">
+				<xsl:with-param name="string" select="$string"/>
+			</xsl:call-template>
+		</xsl:variable>
+		<xsl:variable name="markup-processed-string">
+			<xsl:choose>
+				<xsl:when test="$allow-markup">
+					<!-- a property which allows markup must have a root element if it contains markup -->
+					<xsl:choose>
+						<xsl:when test="$markup-purged-string = $string"><!-- string contains no markup -->
+							<xsl:value-of select="$string"/>
+						</xsl:when>
+						<xsl:otherwise>
+							<xsl:value-of select="concat('&lt;span&gt;', $string, '&lt;/span&gt;')"/>
+						</xsl:otherwise>
+					</xsl:choose>
+				</xsl:when>
+				<xsl:otherwise>
+					<!-- markup not allowed -->
+					<xsl:value-of select="$markup-purged-string"/>
+				</xsl:otherwise>
+			</xsl:choose>
+		</xsl:variable>
 		<xsl:call-template name="escape">
 			<xsl:with-param name="string">
 				<xsl:call-template name="escape">
-					<xsl:with-param name="string" select="normalize-space($string)"/>
+					<xsl:with-param name="string" select="normalize-space($markup-processed-string)"/>
 					<xsl:with-param name="char" select=" '\' "/>
 				</xsl:call-template>
 			</xsl:with-param>
 			<xsl:with-param name="char" select=" '&quot;' "/>
 		</xsl:call-template>
+	</xsl:template>
+	
+	<!-- a list of elements to look out for in metadata fields; they may need to be removed -->
+	<xsl:variable name="elements" select="document('')/*/dummy:elements/*"/>
+	<dummy:elements>
+		<i/>
+		<em/>
+	</dummy:elements>
+	<xsl:template name="purge-markup">
+		<xsl:param name="string"/>
+		<!-- any markup in the string should be removed -->
+		<xsl:call-template name="remove-elements">
+			<xsl:with-param name="string" select="$string"/>
+			<xsl:with-param name="elements" select="$elements"/>
+		</xsl:call-template>
+	</xsl:template>
+	
+	<!-- a template to purge elements from a string -->
+	<xsl:template name="remove-elements">
+		<xsl:param name="string"/>
+		<xsl:param name="elements"/>
+		<xsl:choose>
+			<xsl:when test="count($elements) = 0">
+				<!-- no more elements to purge -->
+				<xsl:value-of select="$string"/>
+			</xsl:when>
+			<xsl:otherwise>
+				<!-- take the first element from the list, construct start and end tags, purge
+				them from the string, and recurse to process the remaining elements in the list --> 
+				<xsl:variable name="first-element" select="$elements[1]"/>
+				<xsl:variable name="start-tag" select="concat('&lt;', local-name($first-element), '&gt;')"/>
+				<xsl:variable name="end-tag" select="concat('&lt;/', local-name($first-element), '&gt;')"/>
+				<xsl:call-template name="remove-elements">
+					<xsl:with-param name="elements" select="$elements[position() &gt; 1]"/>
+					<xsl:with-param name="string">
+						<xsl:call-template name="remove-substring">
+							<xsl:with-param name="substring" select="$start-tag"/>
+							<xsl:with-param name="string">
+								<xsl:call-template name="remove-substring">
+									<xsl:with-param name="substring" select="$end-tag"/>
+									<xsl:with-param name="string" select="$string"/>
+								</xsl:call-template>
+							</xsl:with-param>
+						</xsl:call-template>
+					</xsl:with-param>
+				</xsl:call-template>
+			</xsl:otherwise>
+		</xsl:choose>
+	</xsl:template>
+	
+	<!-- remove every occurrence of substring from string -->
+	<xsl:template name="remove-substring">
+		<xsl:param name="string"/>
+		<xsl:param name="substring"/>
+		<xsl:choose>
+			<xsl:when test="contains($string, $substring)">
+				<xsl:value-of select="substring-before($string, $substring)"/>
+				<xsl:call-template name="remove-substring">
+					<xsl:with-param name="string" select="substring-after($string, $substring)"/>
+					<xsl:with-param name="substring" select="$substring"/>
+				</xsl:call-template>
+			</xsl:when>
+			<xsl:otherwise>
+				<xsl:value-of select="$string"/>
+			</xsl:otherwise>
+		</xsl:choose>
 	</xsl:template>
 
 	<xsl:template name="render-series-list">
@@ -229,6 +329,7 @@
 				<xsl:text>, </xsl:text>
 			</xsl:if>
 			<xsl:text>"</xsl:text><xsl:call-template name="json-string">
+				<xsl:with-param name="allow-markup" select="true()"/>
 				<xsl:with-param name="string">
 					<xsl:apply-templates mode="metadata-value" select="."/>
 				</xsl:with-param>

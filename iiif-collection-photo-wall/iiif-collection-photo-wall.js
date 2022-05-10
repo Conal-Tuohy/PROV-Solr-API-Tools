@@ -189,10 +189,15 @@ function createMetadataRow(label, value, className) {
 	valueCell.append(list);
 	getPreferredLanguageValue(value).forEach(
 		function(string) {
-			// TODO handle HTML markup which may be present: if the property value starts with "<" and ends with ">"
+			// handle HTML markup which may be present: if the property value starts with "<" and ends with ">"
 			let listItem = document.createElement("li");
 			list.append(listItem);
-			listItem.append(string);
+			try {
+				listItem.innerHTML = string;
+			} catch (syntaxError) {
+				console.error("Syntax error in HTML IIIF property", label, value);
+				listItem.append(string);
+			}
 		}
 	);
 	row.append(labelCell);
