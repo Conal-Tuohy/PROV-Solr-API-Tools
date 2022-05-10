@@ -26,7 +26,8 @@ function initializeIIIFCollectionPhotoWall(photoWall) {
 	// Start observing the photoWall's attributes
 	observer.observe(photoWall, config);
 	// query for the collection immediately
-	queryIIIFCollection(photoWall);
+	const queryURL = photoWall.getAttribute("data-iiif-collection-url");
+	queryIIIFCollection(photoWall, queryURL);
 }
 
 // callback function to receive notifications of changes to a photoWall's query URI
@@ -36,18 +37,19 @@ function photoWallChanged(mutationsList, observer) {
 		if (mutation.type === 'attributes') {
 			if (mutation.attributeName === 'data-iiif-collection-url') {
 				console.log("The photo wall's query URL has changed");
-				queryIIIFCollection(mutation.target);
+				const photoWall = mutation.target;
+				photoWall.textContent = null;
+				const queryURL = photoWall.getAttribute("data-iiif-collection-url");
+				queryIIIFCollection(photoWall, queryURL);
 			}
 		}
 	}
 }
 
 // execute the photo wall's query and visualize the results
-function queryIIIFCollection(photoWall) {
-	const queryURL = photoWall.getAttribute("data-iiif-collection-url");
-	console.debug("Querying IIIF collection " + queryURL + " ...");
-	// TODO check queryURL is good to go
+function queryIIIFCollection(photoWall, queryURL) {
 	if (queryURL.length > 0) {
+		console.debug("Querying IIIF collection " + queryURL + " ...");
 		var request = new XMLHttpRequest();
 		request.responseType = "json";
 		request.open("GET", queryURL);
@@ -61,13 +63,44 @@ function queryIIIFCollection(photoWall) {
 
 // display the collection on the photo wall
 function displayIIIFCollection(collection, photoWall) {
-	//photoWall.textContent = JSON.stringify(collection);
-	photoWall.textContent = null;
+	// add all the collection items (manifests) as tiles in the photo wall
 	collection.items.forEach(manifest => displayIIIFManifest(manifest, photoWall));
+	try {
+		// make sure the first tile loaded is visible
+		document.getElementById(encodeURIComponent(collection.items[0].id)).scrollIntoView({"behavior": "smooth"});
+	} catch (error) {
+		console.log("Failed to scroll first manifest into view:", error);
+	}
+	collection.seeAlso
+		.filter(object => object.type = "Collection")
+		.forEach(collection => addNextCollectionButton(collection, photoWall));
 }
+
+function addNextCollectionButton(collection, photoWall) {
+	let tileDiv = document.createElement("div"); // a single tile in the photo wall grid
+	tileDiv.className = "tile";
+	let link = document.createElement("a");
+	link.className = "next-collection";
+	link.href = collection.id;
+	link.addEventListener("click", loadNextCollection);
+	link.append(getPreferredLanguageValue(collection.label)[0]);
+	tileDiv.append(link);
+	photoWall.append(tileDiv);
+}
+
+function loadNextCollection(event) {
+	event.preventDefault();
+	const link = event.target;
+	const linkContainerDiv = link.parentElement;
+	const photoWall = linkContainerDiv.parentElement;
+	linkContainerDiv.remove();
+	queryIIIFCollection(photoWall, link.href);
+}
+
 function displayIIIFManifest(manifest, photoWall) {
 	let tileDiv = document.createElement("div"); // a single tile in the photo wall grid
 	tileDiv.className = "tile";
+	tileDiv.id = encodeURIComponent(manifest.id);
 	let itemDiv = document.createElement("div"); // a div within the tile which contains the image and metadata
 	itemDiv.className = "item";
 	let thumbnailImage = document.createElement("img");
@@ -132,9 +165,18 @@ function displayIIIFManifest(manifest, photoWall) {
 	automateDetails(details);
 }
 
-function createMetadataRow(label, value, className) {	
+function getPreferredLanguageValue(object) {
+	// The object's keys are language codes; this function returns the value of the key
+	// which best matches the user's language preference
+	// NB this function is a stub which always just returns the value of the first language
+	// listed, whatever that language may be.
+	// The return value is an array of strings.
 	// label is a string, value is an object whose keys are language codes, and whose values are arrays of strings
-	let firstLanguageName = Object.keys(value)[0];
+	let firstLanguageName = Object.keys(object)[0];
+	return object[firstLanguageName];
+}
+
+function createMetadataRow(label, value, className) {	
 	let row = document.createElement("tr");
 	row.className = className;
 	let labelCell = document.createElement("th");
@@ -143,7 +185,7 @@ function createMetadataRow(label, value, className) {
 	let list = document.createElement("ul");
 	list.className = "iiif-metadata-value";
 	valueCell.append(list);
-	value[firstLanguageName].forEach(
+	getPreferredLanguageValue(value).forEach(
 		function(string) {
 			// TODO handle HTML markup which may be present: if the property value starts with "<" and ends with ">"
 			let listItem = document.createElement("li");
@@ -156,7 +198,7 @@ function createMetadataRow(label, value, className) {
 	return row;
 }
 function automateDetails(details) {
-	// listen to events fired by the div and open and close the  
+	// listen to events fired by the div and open and close the details
 	details.addEventListener("click", itemClicked);
 }
 function itemClicked(event) {
