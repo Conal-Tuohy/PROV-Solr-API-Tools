@@ -30,7 +30,14 @@
 	<p:variable name="relative-uri" select="substring-after(/c:request/@href, '?')"/>
 
 	<!-- the public address of the proxy server sitting in front of XProc-Z (typically Apache on port 80) -->
-	<p:variable name="solr-local-public-base-uri" select="concat('http://', /c:request/c:header[@name='x-forwarded-host']/@value, '/search/query?')"/>
+	<p:variable name="solr-local-public-base-uri" select="
+		concat(
+			/c:request/c:header[lower-case(@name)='x-forwarded-proto']/@value, 
+			'://', 
+			/c:request/c:header[lower-case(@name)='x-forwarded-host']/@value, 
+			'/search/query?'
+		)
+	"/>
 	<!-- the internal address of this XProc-Z proxy server sitting in front of PROV's API -->
 	<p:variable name="solr-local-internal-base-uri" select="concat(substring-before(/c:request/@href,'?'), '?')"/>
 	<!-- requests for IIIF collections will have wt=xslt and a tr parameter; they must be rewritten to wt=xml -->
