@@ -111,7 +111,7 @@
 	</p:choose>
 	<!-- delete HTTP response headers from upstream because they may no longer apply, especially the "Content-Length" header -->
 	<!-- which will not be accurate if the content has been modified -->
-	<p:delete match="/c:response/c:header"/>
+	<p:delete match="/c:response/c:header[not(starts-with(lower-case(@name), 'x-ratelimit'))]"/>
 	<p:insert match="/c:response" position="first-child">
 		<p:input port="insertion">
 			<p:inline>
