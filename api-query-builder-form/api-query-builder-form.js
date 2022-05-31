@@ -36,15 +36,16 @@ function initializeQueryBuilderForm(form) {
 			// does this element need to be populated with options?
 			// A SELECT or DATALIST element should be populated with OPTION
 			// elements; if it has no such children, then we need to load them from Solr
-			function (element) {
-				if (element.list != null) {
-					// an empty DATALIST element needs to be populated
-					return element.list.childElementCount === 0;
-				} else {
-					// an empty SELECT element needs to be populated
-					return element.localName.toUpperCase() === 'SELECT' && element.childElementCount === 0;
-				}
-			}
+			element =>
+				// an empty DATALIST element needs to be populated
+				(element.list != null && element.list.childElementCount === 0) ||
+				// a SELECT element with no options, or with only a single blank option, needs to be populated
+				(
+					element instanceof HTMLSelectElement && (
+						(element.options.length === 0) || // no options provided 
+						(element.options.length === 1 && element.options.item(0).value === "") // only a blank ("any") option provided
+					)
+				)
 		).map(
 			function(element) {
 				console.log("metadata element", element);
@@ -352,8 +353,6 @@ function setFacetValues(form, solrFacetCountResponse) {
 					)
 				console.log("option values", optionValues);
 				const option = document.createElement("option");
-				option.append("");
-				optionContainer.append(option);
 				optionValues.forEach(
 					function(optionValue) {
 						const option = document.createElement("option");

@@ -1,5 +1,6 @@
 form.query-builder {
 	font-family: sans-serif;
+	font-size: 11pt;
 }
 
 form.query-builder fieldset {
@@ -29,13 +30,35 @@ form.query-builder fieldset div {
 }
 
 form.query-builder button {
-	margin-top: 1.2em;
-	padding-top: 0.3em;
-	padding-bottom: 0.3em;
+	padding-top: 0.2em;
+	padding-bottom: 0.2em;
 	padding-left: 0.5em;
 	padding-right: 0.5em;
 }
 
 form.query-builder a.display-url {
 	text-decoration: none;
+}
+
+/* popup help */
+form.query-builder details summary {
+	text-decoration: underline dotted;
+	cursor: help;
+	display: inline;
+}
+form.query-builder details {
+	position: relative;
+}
+form.query-builder details div {
+	background-color: white;
+	padding: 1em;
+	border-radius: 1em;
+	border-color: black;
+	border-style: solid;
+	border-width: medium;
+	position: absolute;
+	bottom: 1em;
+	left: 0;
+	min-width: 18em;
+	font-size: 8pt;
 }
