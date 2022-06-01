@@ -18,6 +18,11 @@ div.iiif-collection-photo-wall div.tile {
 	height: 220px;
 }
 
+div.iiif-collection-photo-wall div.no-results-found {
+	padding: 0.5em;
+	background-color: rgb(197, 232, 108);
+}
+
 div.iiif-collection-photo-wall summary {
 	display: block;
 	cursor: pointer;

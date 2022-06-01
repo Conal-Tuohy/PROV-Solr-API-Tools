@@ -64,18 +64,45 @@ function queryIIIFCollection(photoWall, queryURL) {
 // display the collection on the photo wall
 function displayIIIFCollection(collection, photoWall) {
 	// add all the collection items (manifests) as tiles in the photo wall
-	collection.items.forEach(manifest => displayIIIFManifest(manifest, photoWall));
-	try {
-		// make sure the first tile loaded is visible
-		document.getElementById(encodeURIComponent(collection.items[0].id)).scrollIntoView({"behavior": "smooth"});
-	} catch (error) {
-		console.log("Failed to scroll first manifest into view:", error);
+	if (collection.items.length === 0) {
+		addNoResultsFoundMessage(photoWall);
+	} else {
+		collection.items.forEach(manifest => displayIIIFManifest(manifest, photoWall));
+		try {
+			// make sure the first tile loaded is visible
+			document.getElementById(encodeURIComponent(collection.items[0].id)).scrollIntoView({"behavior": "smooth"});
+		} catch (error) {
+			console.log("Failed to scroll first manifest into view:", error);
+		}
+		if (Object.hasOwn(collection, 'seeAlso')) {
+			collection.seeAlso
+				.filter(object => object.type = "Collection")
+				.forEach(collection => addNextCollectionButton(collection, photoWall));
+		}
 	}
-	if (Object.hasOwn(collection, 'seeAlso')) {
-		collection.seeAlso
-			.filter(object => object.type = "Collection")
-			.forEach(collection => addNextCollectionButton(collection, photoWall));
-	}
+}
+
+function addNoResultsFoundMessage(photoWall) {
+	let messageDiv = document.createElement("div");
+	messageDiv.className = "no-results-found";
+	let p1 = document.createElement("p");
+	let p2 = document.createElement("p");
+	let suggestionList = document.createElement("ul");
+	let s1 = document.createElement("li");
+	let s2 = document.createElement("li");
+	let s3 = document.createElement("li");
+	p1.append("Your search didn't match any images."); 
+	p2.append("Suggestions:");
+	s1.append("Make sure that all words are spelled correctly.");
+	s2.append("Try different keywords.");
+	s3.append("Try more general keywords.");
+	photoWall.append(messageDiv);
+	messageDiv.append(p1);
+	messageDiv.append(p2);
+	messageDiv.append(suggestionList);
+	suggestionList.append(s1);
+	suggestionList.append(s2);
+	suggestionList.append(s3);
 }
 
 function addNextCollectionButton(collection, photoWall) {
