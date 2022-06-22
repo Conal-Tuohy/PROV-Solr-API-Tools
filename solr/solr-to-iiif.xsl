@@ -47,7 +47,7 @@
 	 the parameters sorted into a canonical order: all the control parameters first (i.e. all except q), 
 	 in name order, followed by the q parameter
 	-->
-	<xsl:variable name="next-page-id">
+	<xsl:template name="get-next-page-id">
 		<xsl:value-of select="$base-uri"/>
 		<xsl:variable name="control-parameters" select="$parameters[@name != 'q'][@name != 'start'] | $start-parameter"/>
 		<xsl:apply-templates mode="encode-parameter" select="$control-parameters">
@@ -56,7 +56,7 @@
 		</xsl:apply-templates>
 		<xsl:text>&amp;</xsl:text>
 		<xsl:apply-templates mode="encode-parameter" select="$parameters[@name = 'q']"/>
-	</xsl:variable>
+	</xsl:template>
 	
 	<xsl:template mode="encode-parameter" match="*">
 		<xsl:param name="increment-start-parameter" select="false()"/>
@@ -104,7 +104,7 @@
 	<xsl:if test="$more-documents">
 		<xsl:text>
 	"seeAlso": [ {
-		"id": "</xsl:text><xsl:value-of select="$next-page-id"/><xsl:text>",
+		"id": "</xsl:text><xsl:call-template name="get-next-page-id"/><xsl:text>",
 		"type": "Collection",
 		"label": { "en": [ "</xsl:text>
 		<xsl:choose>
