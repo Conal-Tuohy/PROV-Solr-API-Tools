@@ -1,6 +1,6 @@
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:dummy="dummy">
 
-	<xsl:output method="text" media-type='application/json"'/>
+	<xsl:output method="text" media-type='application/json'/>
 <!--
 	<xsl:output method="text" media-type='application/ld+json;profile="http://iiif.io/api/presentation/3/context.json"'/>
 -->
